@@ -67,10 +67,13 @@ def bot(exchange_name, symbol, amount):
                 price = position["info"]["fills"][0]["price"]
                 bought == True
                 profit = price * 1.15 #price with 15% profit
+                return position
             elif cur_price > profit and bought == True:
                 position = sell(exchange, symbol, amount)
                 bought = False
-        return position
+                return position
+        time.sleep(60*30)
+
 
     #print(counter)
 if __name__ == "__main__":
