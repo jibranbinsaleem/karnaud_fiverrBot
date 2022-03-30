@@ -7,6 +7,7 @@ from functions import buy, sell
 import pandas as pd
 
 def bot(exchange_name, symbol, amount):
+    position = ""
     print(exchange_name)
     profit = 0
     bought = False
