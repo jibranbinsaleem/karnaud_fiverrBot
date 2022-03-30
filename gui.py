@@ -71,7 +71,7 @@ def retrieve_input():
     changer_input(inputValue1,inputValue2,inputValue3)
     
 def changer_input(symbol,amount,x3):
-    bot(result, symbol, amount)
+    x = bot(result, symbol, amount)
     
     
 

@@ -69,7 +69,7 @@ def bot(exchange_name, symbol, amount):
             elif cur_price > profit and bought == True:
                 position = sell(exchange, symbol, amount)
                 bought = False
-
+        return position
 
     #print(counter)
 if __name__ == "__main__":
