@@ -1,4 +1,1 @@
 symbol,orderId,orderListId,clientOrderId,transactTime,price,origQty,executedQty,cummulativeQuoteQty,status,timeInForce,type,side,fills
-BTCUSDT,13778245,-1,x-R4BD3S822dd4337e55da416df4d6f9,1648577486821,0.00000000,0.10000000,0.10000000,4751.47328492,FILLED,GTC,MARKET,SELL,"{'price': '47514.89000000', 'qty': '0.02012600', 'commission': '0.00000000', 'commissionAsset': 'USDT', 'tradeId': '4280631'}"
-BTCUSDT,13778245,-1,x-R4BD3S822dd4337e55da416df4d6f9,1648577486821,0.00000000,0.10000000,0.10000000,4751.47328492,FILLED,GTC,MARKET,SELL,"{'price': '47514.72000000', 'qty': '0.05850900', 'commission': '0.00000000', 'commissionAsset': 'USDT', 'tradeId': '4280632'}"
-BTCUSDT,13778245,-1,x-R4BD3S822dd4337e55da416df4d6f9,1648577486821,0.00000000,0.10000000,0.10000000,4751.47328492,FILLED,GTC,MARKET,SELL,"{'price': '47514.62000000', 'qty': '0.02136500', 'commission': '0.00000000', 'commissionAsset': 'USDT', 'tradeId': '4280633'}"

@@ -6,9 +6,14 @@ import csv
 from functions import buy, sell
 import pandas as pd
 
+
 def bot(exchange_name, symbol, amount):
-    position = ""
-    print(exchange_name)
+    global exchange
+    global output
+    global name, symbol_alt, amount_alt
+    name, symbol_alt, amount_alt = exchange_name, symbol, amount
+    output = ""
+
     profit = 0
     bought = False
     exchange = None
@@ -32,10 +37,8 @@ def bot(exchange_name, symbol, amount):
 
     elif exchange_name == "bittrex":
         exchange = ccxt.bittrex({
-            'proxies': {
-                'http': config.HTTP_PROXY,
-                'https': config.HTTPS_PROXY,
-            },
+            'apiKey' : config.BITTREX_APIKEY,
+            'secret' : config.BITTREX_SECRET
         })
 
     exchange.set_sandbox_mode(True)
@@ -49,17 +52,19 @@ def bot(exchange_name, symbol, amount):
 
 
     while True:
+        print("BOT started")
         if exchange_name == "binance" or "bittrex":
             ohlc_data = exchange.fetch_ohlcv(symbol=symbol, timeframe = "30m", limit=1) #time, o,h,l,c
         elif exchange_name == "coinbasepro":
             ohlc_data = exchange.fetch_ohlcv(symbol = symbol, timeframe = "1h", limit = 1 )
         #counter =
         for ohlc in ohlc_data:
-            #print(ohlc)
+            
             percentage_change = ((ohlc[1] - ohlc[4]) / ohlc[1]) * 100
             cur_price = ohlc[4]
             #counter += 1
             #print(percentage_change)
+            print(f"\n current percentage change is {percentage_change}")
             if percentage_change <= -15.0 and bought == False :
                 position = buy(exchange, symbol, amount)
                 df = pd.DataFrame.from_dict(position["info"])
@@ -67,14 +72,32 @@ def bot(exchange_name, symbol, amount):
                 price = position["info"]["fills"][0]["price"]
                 bought == True
                 profit = price * 1.15 #price with 15% profit
-                return position
+                output = f"Bought {amount} of {symbol} at price {price} USD"
+                
             elif cur_price > profit and bought == True:
                 position = sell(exchange, symbol, amount)
                 bought = False
-                return position
+                output = f"sold {amount} of {symbol} at price {price} USD"
+                
         time.sleep(60*30)
 
+def info():
+    global output
+    if name == "binance" or "bittrex":
+            ohlc_data = exchange.fetch_ohlcv(symbol=symbol_alt, timeframe = "30m", limit=1) #time, o,h,l,c
+    elif name == "coinbasepro":
+            ohlc_data = exchange.fetch_ohlcv(symbol = symbol_alt, timeframe = "1h", limit = 1 )
+        
+    for ohlc in ohlc_data:
+            
+        percentage_change = ((ohlc[1] - ohlc[4]) / ohlc[1]) * 100
+        cur_price = ohlc[4]
+    output += f"\n current percentage change is {percentage_change}"
+    return output
+        
 
-    #print(counter)
+    
+
 if __name__ == "__main__":
+    #exhcange name first, then symbol need to be traded and then number of currency 
     bot("binance", "BTC/USDT", 0.1)
